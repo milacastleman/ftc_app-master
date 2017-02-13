@@ -58,6 +58,8 @@ public class autoOp1 extends OpMode {
                 state++;
             }else{
                 forward();
+
+                
             }
         }else if(state == 1){
             // Turn until we in good position
