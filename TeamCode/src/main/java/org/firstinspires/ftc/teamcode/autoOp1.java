@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -51,7 +52,6 @@ public class autoOp1 extends OpMode {
         if(state == 0){
             // Drive forward until the line
 
-
             if(photoCenter.getVoltage() < centerThreshold){
                 //stop it
                 stop();
@@ -59,17 +59,19 @@ public class autoOp1 extends OpMode {
             }else{
                 forward();
 
-                //FHoewhoifhwoi
             }
         }else if(state == 1){
             // Turn until we in good position
             turnRight();
 
         }else if(state == 2) {
-            //Follow the line until the center sensor goes black
+            //Follow the line until all sensors go white
+
+
 
         }else{
             // Halt
+            stop();
         }
 
     }
@@ -77,10 +79,10 @@ public class autoOp1 extends OpMode {
     //Forward
 
     public void forward(){
-        motorFrontLeft.setPower(1);
-        motorFrontRight.setPower(-1);
-        motorBackLeft.setPower(1);
-        motorBackRight.setPower(-1);
+        motorFrontLeft.setPower(-1);
+        motorFrontRight.setPower(1);
+        motorBackLeft.setPower(-1);
+        motorBackRight.setPower(1);
     }
 
     //Turn left
