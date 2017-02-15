@@ -7,8 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ThreadPool;
 
 /**
- * Created by mcastleman18 on 2/9/17.
+ * Created by mcastleman0.758 on 2/9/17.
  */
+
 
 public class autoOp1 extends OpMode {
     DcMotor motorFrontLeft;
@@ -22,7 +23,7 @@ public class autoOp1 extends OpMode {
     AnalogInput photoRight;
 
 
-    double armSpeed = 1.0;
+    double armSpeed = 0.75;
     double rightThreshold = 2.5;
     double centerThreshold = 2.5;
     double leftThreshold = 2.5;
@@ -43,9 +44,9 @@ public class autoOp1 extends OpMode {
         photoCenter = hardwareMap.analogInput.get("photoCenter");
         photoRight = hardwareMap.analogInput.get("photoRight");
         state = 0;
+
     }
-
-
+    
 
     @Override
     public void loop() {
@@ -60,13 +61,32 @@ public class autoOp1 extends OpMode {
                 forward();
 
             }
-        }else if(state == 1){
-            // Turn until we in good position
-            turnRight();
+        }else if(state == 0.75) {
+            // Turn until in good position
+            if (photoRight.getVoltage() < rightThreshold) {
+                stop();
+                state++;
+            } else {
+                rotateRight();
+
+            }
 
         }else if(state == 2) {
-            //Follow the line until all sensors go white
 
+            if(photoRight.getVoltage() < rightThreshold && photoLeft.getVoltage() < leftThreshold) {
+                stop();
+                state++;
+
+            }else if (photoLeft.getVoltage() < leftThreshold) {
+
+                turnLeft();
+
+            }else if(photoRight.getVoltage() < rightThreshold){
+                turnRight();
+
+            }else{
+                forward();
+            }
 
 
         }else{
@@ -79,27 +99,27 @@ public class autoOp1 extends OpMode {
     //Forward
 
     public void forward(){
-        motorFrontLeft.setPower(-1);
-        motorFrontRight.setPower(1);
-        motorBackLeft.setPower(-1);
-        motorBackRight.setPower(1);
+        motorFrontLeft.setPower(-0.75);
+        motorFrontRight.setPower(0.75);
+        motorBackLeft.setPower(-0.75);
+        motorBackRight.setPower(0.75);
     }
 
     //Turn left
 
     public void turnLeft(){
-        motorFrontLeft.setPower(1);
-        motorFrontRight.setPower(1);
-        motorBackLeft.setPower(1);
-        motorBackRight.setPower(1);
+        motorFrontLeft.setPower(0);
+        motorFrontRight.setPower(0.75);
+        motorBackLeft.setPower(0);
+        motorBackRight.setPower(0.75);
     }
     //Turn right
 
     public void turnRight(){
-        motorFrontLeft.setPower(-1);
-        motorFrontRight.setPower(-1);
-        motorBackLeft.setPower(-1);
-        motorBackRight.setPower(-1);
+        motorFrontLeft.setPower(-0.75);
+        motorFrontRight.setPower(0);
+        motorBackLeft.setPower(-0.75);
+        motorBackRight.setPower(0);
     }
 
     //Stop
@@ -110,6 +130,13 @@ public class autoOp1 extends OpMode {
         motorBackLeft.setPower(0);
         motorBackRight.setPower(0);
 
+    }
+
+    public void rotateRight(){
+        motorFrontLeft.setPower(-0.75);
+        motorFrontRight.setPower(-0.75);
+        motorBackLeft.setPower(-0.75);
+        motorBackRight.setPower(-0.75);
     }
 
 
