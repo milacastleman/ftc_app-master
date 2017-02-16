@@ -7,10 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ThreadPool;
 
 /**
- * Created by mcastleman0.758 on 2/9/17.
+ * Created by mcastleman18 on 2/9/17.
  */
 
-
+@Autonomous
 public class autoOp1 extends OpMode {
     DcMotor motorFrontLeft;
     DcMotor motorFrontRight;
@@ -23,10 +23,10 @@ public class autoOp1 extends OpMode {
     AnalogInput photoRight;
 
 
-    double armSpeed = 0.75;
-    double rightThreshold = 2.5;
-    double centerThreshold = 2.5;
-    double leftThreshold = 2.5;
+    double armSpeed = 0.25;
+    double rightThreshold = 4.2;
+    double centerThreshold = 4;
+    double leftThreshold = 4.2;
 
 
 
@@ -46,24 +46,36 @@ public class autoOp1 extends OpMode {
         state = 0;
 
     }
-    
+    double startTime;
 
     @Override
     public void loop() {
-        if(state == 0){
+        double centerValue = photoCenter.getVoltage();
+        double leftValue = photoLeft.getVoltage();
+        double rightValue = photoRight.getVoltage();
+        if (state == 0) {
             // Drive forward until the line
 
-            if(photoCenter.getVoltage() < centerThreshold){
+
+            if (rightValue > rightThreshold || leftValue > leftThreshold) {
                 //stop it
                 stop();
                 state++;
-            }else{
+                startTime = getRuntime();
+            } else {
                 forward();
 
             }
-        }else if(state == 0.75) {
+        } else if (state == 1) {
+            if (getRuntime() - startTime > 0.3) {
+                stop();
+                state++;
+            } else {
+                forward();
+            }
+        } else if(state == 2) {
             // Turn until in good position
-            if (photoRight.getVoltage() < rightThreshold) {
+            if (leftValue > leftThreshold) {
                 stop();
                 state++;
             } else {
@@ -71,17 +83,17 @@ public class autoOp1 extends OpMode {
 
             }
 
-        }else if(state == 2) {
+        }else if(state == 3) {
 
-            if(photoRight.getVoltage() < rightThreshold && photoLeft.getVoltage() < leftThreshold) {
+            if(rightValue > rightThreshold && leftValue > leftThreshold) {
                 stop();
                 state++;
 
-            }else if (photoLeft.getVoltage() < leftThreshold) {
+            }else if (leftValue > leftThreshold) {
 
                 turnLeft();
 
-            }else if(photoRight.getVoltage() < rightThreshold){
+            }else if(rightValue > rightThreshold){
                 turnRight();
 
             }else{
@@ -93,32 +105,35 @@ public class autoOp1 extends OpMode {
             // Halt
             stop();
         }
+        telemetry.addData("Photo Left: ",leftValue);
+        telemetry.addData("Photo Center: ",centerValue);
+        telemetry.addData("Photo Right: ",rightValue);
 
     }
 
     //Forward
 
     public void forward(){
-        motorFrontLeft.setPower(-0.75);
-        motorFrontRight.setPower(0.75);
-        motorBackLeft.setPower(-0.75);
-        motorBackRight.setPower(0.75);
+        motorFrontLeft.setPower(0.1);
+        motorFrontRight.setPower(-0.1);
+        motorBackLeft.setPower(0.1);
+        motorBackRight.setPower(-0.1);
     }
 
     //Turn left
 
     public void turnLeft(){
         motorFrontLeft.setPower(0);
-        motorFrontRight.setPower(0.75);
+        motorFrontRight.setPower(-0.25);
         motorBackLeft.setPower(0);
-        motorBackRight.setPower(0.75);
+        motorBackRight.setPower(-0.25);
     }
     //Turn right
 
     public void turnRight(){
-        motorFrontLeft.setPower(-0.75);
+        motorFrontLeft.setPower(0.25);
         motorFrontRight.setPower(0);
-        motorBackLeft.setPower(-0.75);
+        motorBackLeft.setPower(0.25);
         motorBackRight.setPower(0);
     }
 
@@ -133,10 +148,10 @@ public class autoOp1 extends OpMode {
     }
 
     public void rotateRight(){
-        motorFrontLeft.setPower(-0.75);
-        motorFrontRight.setPower(-0.75);
-        motorBackLeft.setPower(-0.75);
-        motorBackRight.setPower(-0.75);
+        motorFrontLeft.setPower(0.18);
+        motorFrontRight.setPower(0.18);
+        motorBackLeft.setPower(0.18);
+        motorBackRight.setPower(0.18);
     }
 
 

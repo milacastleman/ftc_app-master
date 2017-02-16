@@ -28,8 +28,8 @@ public class TeleOp1 extends OpMode {
         motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
         motorBackLeft = hardwareMap.dcMotor.get("motorBackLeft");
         motorBackRight = hardwareMap.dcMotor.get("motorBackRight");
-        motorArmLeft = hardwareMap.dcMotor.get("motorArmLeft");
-        motorArmRight = hardwareMap.dcMotor.get("motorArmRight");
+        motorArmLeft = hardwareMap.dcMotor.get("motorArmRight");
+        motorArmRight = hardwareMap.dcMotor.get("motorArmLeft");
     }
 
     @Override
