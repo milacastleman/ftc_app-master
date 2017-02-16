@@ -75,7 +75,7 @@ public class autoOp1 extends OpMode {
             }
         } else if(state == 2) {
             // Turn until in good position
-            if (leftValue > leftThreshold) {
+            if (centerValue > centerThreshold) {
                 stop();
                 state++;
             } else {
