@@ -67,7 +67,7 @@ public class autoOp1 extends OpMode {
 
             }
         } else if (state == 1) {
-            if (getRuntime() - startTime > 0.3) {
+            if (getRuntime() - startTime > 0.5) {
                 stop();
                 state++;
             } else {
