@@ -1,7 +1,3 @@
-
-
-
-
 package org.firstinspires.ftc.teamcode;
 
         import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -10,7 +6,7 @@ package org.firstinspires.ftc.teamcode;
         import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * Created by mcastleman18 on 1/30/17.
+ * Created by mcastleman18 on 10/28/17.
  */
 
 @TeleOp
