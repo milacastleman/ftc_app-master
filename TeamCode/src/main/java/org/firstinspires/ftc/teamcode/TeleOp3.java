@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by mcastleman18 on 11/4/17.
@@ -13,7 +12,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class TeleOp3 extends OpMode {
     DcMotor motorFrontLeft;
     DcMotor motorFrontRight;
-    Servo servoArmLeft;
 
 
     double armSpeed = 1.0;
@@ -23,7 +21,6 @@ public class TeleOp3 extends OpMode {
 
         motorFrontLeft = hardwareMap.dcMotor.get("motorFrontLeft");
         motorFrontRight = hardwareMap.dcMotor.get("motorFrontRight");
-        servoArmLeft = hardwareMap.servo.get("servoArmLeft");
     }
 
     @Override
